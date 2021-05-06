@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sign up page</title>
+</head>
+<body style=background-color:rgb(40,197,119)>
+    <center>
+        <h1>The Mega Cart</h1>
+        <form name="signup">
+        <table>
+            <tr><td>Enter Username:</td><td><input type="text" name="uname" required></td></tr>
+            <tr><td>Enter Email Id:</td><td><input type="text" name="email"></td></tr>
+            <tr><td>Emter Mobile no:</td><td><input type="text" name="mobno"></td></tr>
+            <tr><td>Enter Password:</td><td><input type="password" name="pwd"></td></tr>
+            <tr><td>Confirm Password</td><td><input type="password" name="cpwd"></td></tr>
+        </table></br>
+        <input type="submit" name='submit' value="Sign Up" onclick="validate()"></form>
+    <p>Already a member? Login <a href="D:/Javascript_handson_signup/Javascript_handson_page1.html">here</a></p>
+    </center>
+    <script type="text/javascript">
+    function validate(){
+        var username= document.forms["signup"]["uname"].value;
+        var email= document.forms["signup"]["email"].value;
+        pattern1 = new RegExp("(?=.*@)(?=.+.com)");
+        var mobno= document.forms["signup"]["mobno"].value;
+        pattern2 = new RegExp("[0-9]{10}");
+        var pass= document.forms["signup"]["pwd"].value;
+        pattern3 = new RegExp("(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%&*-])");
+        var cpass = document.forms["signup"]["cpwd"].value;
+        if (username.length>=6 && username.length<=10){
+            localStorage.setItem("username",username);
+            if (pattern1.test(email)){
+                if (pattern2.test(mobno)){
+                    if(pattern3.test(pass)){
+                        if(pass==cpass){
+                            localStorage.setItem("Password",pass);
+                            alert("Successfully Registered!!!\n Redirecting to Login page");
+                            window.location.href='D:/Javascript_handson_signup/Javascript_handson_signup.html';
+                        }
+                        else{
+                            alert("Password and Confirm Password does not match");
+                            document.forms["signup"]["cpwd"].focus();
+                            return false;
+                        }
+                    }
+                    else{
+                        alert("Password should contain digit, characters and one special character");
+                        document.forms["signup"]["pwd"].focus();
+                        return false;
+                    }
+                }
+                else{
+                    alert("Mobile number is not valid");
+                    document.forms["signup"]["mobno"].focus();
+                    return false;
+                }
+            }
+            else{
+                alert("Email Id is not valid");
+                document.forms["signup"]["email"].focus();
+                return false;
+            }
+        }
+        else{
+            alert("Username must be of length between 6 and 10 characters");
+            document.forms["signup"]["uname"].focus();
+            return false;
+        }
+    }
+    </script>
+</body>
+</html>
